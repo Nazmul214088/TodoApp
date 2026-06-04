@@ -1,20 +1,20 @@
-import { NavLink } from "react-router";
 import ThemeToggle from "../Contexts/ThemeToggle";
+import { FaChartBar, FaHome } from "react-icons/fa";
+import CustomNavLink from "./CustomNavLink";
 
 const Navbar = () => {
+  const navLinks = (
+    <>
+      <CustomNavLink linkTitle="Home" to="/" icon={<FaHome />} />
+      <CustomNavLink linkTitle="Stats" to="/stats" icon={<FaChartBar />} />
+    </>
+  );
   return (
-    <nav className="dark:bg-[#131111]">
-      <ul className="flex gap-6 p-4 text-xl font-semibold border-b border-[#3333] shadow-sm justify-center dark:text-white ">
-        <li>
-          <NavLink to={"/"}>Home</NavLink>
-        </li>
-        <li>
-          <NavLink to={"/stats"}>Stats</NavLink>
-        </li>
-        <li>
-          <ThemeToggle />
-        </li>
+    <nav className="dark:bg-[#131111] flex justify-between shadow-sm p-4  border-b border-[#3333]">
+      <ul className="flex gap-6  text-xl font-semibold  justify-center dark:text-white ">
+        {navLinks}
       </ul>
+      <ThemeToggle />
     </nav>
   );
 };

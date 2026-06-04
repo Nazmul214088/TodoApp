@@ -1,19 +1,26 @@
 import { useContext, useRef, useState } from "react";
 import { BiEdit } from "react-icons/bi";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { taskContext } from "../Contexts/TaskProvider";
 import Button from "../Components/Button";
 import Modal from "../Components/Modal";
 import TableData from "../Components/TableData";
-import { useTheme } from "../Contexts/ThemeContext";
 import cn from "../lib/Utility";
+import { useTheme } from "../Hooks/useTheme";
+import { TaskContext } from "../Contexts/TaskContext";
+import ComponentHeader from "../Components/ComponentHeader";
 
 const Home = () => {
   const newTaskModalRef = useRef();
   const editTaskModalRef = useRef();
 
-  const { addTask, tasks, handleDeleteBtn, handleEditTask, handleComplete } =
-    useContext(taskContext);
+  const {
+    addTask,
+    handleUndo,
+    tasks,
+    handleDeleteBtn,
+    handleEditTask,
+    handleComplete,
+  } = useContext(TaskContext);
   const [selectedTask, setSelectedTask] = useState();
   const { theme } = useTheme();
 
@@ -39,56 +46,30 @@ const Home = () => {
   const handleCompleteBtn = (task) => {
     handleComplete(task);
   };
+  const handleUndoBtn = (task) => {
+    handleUndo(task);
+  };
 
   return (
-    <div className={theme == "light" ? "bg-white" : "bg-black"}>
-      <div className="flex justify-between my-8 w-[80%] mx-auto">
-        <h2 className="text-xl font-bold py-4 dark:text-[#ffffff]">
-          All Todo lists:{" "}
-        </h2>
-        <button
-          className="px-6 py-2 bg-[#03fd25] cursor-pointer rounded-xl"
+    <div
+      // className={theme == "light" ? "bg-white" : "bg-black"}
+      className="dark:bg-[#44526a] py-8"
+    >
+      <div className="flex justify-between my-8 w-[95%] mx-auto">
+        <ComponentHeader title=" All Todo lists:" />
+        <Button
+          className="px-6 py-2 bg-[#03fd25]"
+          title="Add New Task"
           onClick={() => newTaskModalRef.current.showModal()}
-        >
-          Add New Task
-        </button>
+        />
       </div>
-      {/* <dialog
-        ref={newTaskModalRef}
-        className="p-8 fixed top-15 mx-auto rounded-2xl"
-      >
-        <div className=" w-5/6 mx-auto">
-          <form onSubmit={handleAddTaskBtn}>
-            <label className="text-xl font-semibold">Task title: </label>
-            <input
-              type="text"
-              className="text-xl w-full p-2 border rounded-xl my-2"
-              name="title"
-              placeholder="Task title"
-            />
-            <button
-              className="px-6 py-2 bg-[#1dff34] cursor-pointer rounded-xl"
-              type="submit"
-            >
-              Add New Task
-            </button>
-          </form>
-          <div className="modal-action">
-            <form method="dialog" className="flex justify-end">
-              <button className="px-6 py-2 bg-[#ff1d1d] cursor-pointer rounded-xl">
-                Close
-              </button>
-            </form>
-          </div>
-        </div>
-      </dialog> */}
       <Modal
         modalRef={newTaskModalRef}
         onSubmit={handleAddTaskBtn}
         modalText={"Add New Task"}
       />
 
-      <table className="border-collapse border w-[80%] mx-auto">
+      {tasks.length ===0?<ComponentHeader title="No Task found! " className="text-red-500 text-center" />:<table className="border-collapse border w-[95%] mx-auto">
         <thead>
           <tr>
             {headerData.map((header) => (
@@ -118,22 +99,29 @@ const Home = () => {
               <TableData
                 tData={
                   <>
-                    {!task.isComplete && (
+                    {!task.isComplete ? (
                       <Button
-                        className={"bg-[#081fca]"}
+                        className={"bg-[#081fca] px-6 py-2 text-white"}
                         title={"Complete"}
                         onClick={() => handleCompleteBtn(task)}
                       />
+                    ) : (
+                      <Button
+                        title="Undo"
+                        onClick={() => handleUndoBtn(task)}
+                        className={"bg-indigo-500 px-6 py-2 text-white"}
+                      />
                     )}
+
                     <Button
-                      className={"bg-[#ca0808]"}
-                      onClick={() => handleDeleteBtn(task.id)}
-                      title={<FaRegTrashAlt />}
-                    />
-                    <Button
-                      className={"bg-[#01c726]"}
+                      className={"bg-[#01c726] px-6 py-2 mx-2 text-white"}
                       onClick={() => openEditModal(task)}
                       title={<BiEdit />}
+                    />
+                    <Button
+                      className={"bg-[#ca0808] px-6 py-2 text-white"}
+                      onClick={() => handleDeleteBtn(task.id)}
+                      title={<FaRegTrashAlt />}
                     />
                   </>
                 }
@@ -142,7 +130,7 @@ const Home = () => {
             </tr>
           ))}
         </thead>
-      </table>
+      </table>}
       <Modal
         modalRef={editTaskModalRef}
         defaultValue={selectedTask?.title}

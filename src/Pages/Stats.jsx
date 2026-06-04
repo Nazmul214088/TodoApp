@@ -1,6 +1,7 @@
-import { useContext } from "react";
-import { taskContext } from "../Contexts/TaskProvider";
 import StatsCard from "../Components/StatsCard";
+import ProgressBar from "../Components/ProgressBar";
+import useTask from "../Hooks/useTask";
+import TaskPieChart from "../Components/TaskPieChart";
 
 const Stats = () => {
   const {
@@ -8,28 +9,45 @@ const Stats = () => {
     handleTotalCompleteTask,
     handleTotalPendingTask,
     totalProgress,
-  } = useContext(taskContext);
+  } = useTask();
+  const taskStatsData = [
+    {
+      title: "Total number of todos",
+      total: tasks.length,
+    },
+    {
+      title: "Total completed todos",
+      total: handleTotalCompleteTask(),
+    },
+    {
+      title: "Total pending todos",
+      total: handleTotalPendingTask(),
+    },
+    {
+      title: "Completion percentage",
+      total: totalProgress(),
+      percentage: "%",
+    },
+  ];
+
   return (
-    <div className="px-[10%] bg-[#20283970] min-h-[90vh] dark:bg-[#333]">
+    <div className="px-[2%] bg-[#d3dff970] dark:bg-[#333]">
       <h1 className="text-6xl font-bold py-6 pt-20 text-center dark:text-white ">
         Task Summary
       </h1>
-      <div className=" grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 justify-center ">
-        <StatsCard title="Total number of todos" total={tasks.length} />
-        <StatsCard
-          title="Total completed todos"
-          total={handleTotalCompleteTask()}
-        />
-        <StatsCard
-          title="Total pending todos"
-          total={handleTotalPendingTask()}
-        />
-        <StatsCard
-          title="Completion percentage"
-          total={totalProgress()}
-          percentage="%"
-        />
+      <div className=" grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-6 justify-center ">
+        {taskStatsData.map((stat) => (
+          <StatsCard
+            key={stat.title}
+            title={stat.title}
+            total={stat.total}
+            percentage={stat.percentage}
+          />
+        ))}
       </div>
+
+      <ProgressBar />
+      <TaskPieChart taskStatsData={taskStatsData} />
     </div>
   );
 };

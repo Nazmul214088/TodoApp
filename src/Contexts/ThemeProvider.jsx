@@ -17,9 +17,7 @@ const ThemeProvider = ({ children }) => {
     theme,
     toggleTheme,
   };
-  return (
-    <ThemeContext.Provider value={themeInfo}>{children}</ThemeContext.Provider>
-  );
+  return <ThemeContext value={themeInfo}>{children}</ThemeContext>;
 };
 
 export default ThemeProvider;

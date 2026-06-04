@@ -1,14 +1,12 @@
-import { twMerge } from "tailwind-merge";
+import cn from "../lib/Utility";
 
-const Button = ({ className, title, ...props }) => {
+const Button = ({ className, type, title, ...props }) => {
   return (
     <button
-    type={props.type}
-      className={twMerge(
-        "px-6 py-2 text-white cursor-pointer rounded-xl mr-2",
-        className,
-      )}
+      type={props.type}
+      className={cn(" cursor-pointer rounded-xl", className)}
       {...props}
+      type={type}
     >
       {title}
     </button>

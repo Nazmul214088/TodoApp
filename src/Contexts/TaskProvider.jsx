@@ -1,6 +1,6 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
+import { TaskContext } from "./TaskContext";
 // eslint-disable-next-line react-refresh/only-export-components
-export const taskContext = createContext();
 
 const TaskContextProvider = ({ children }) => {
   const [tasks, setTasks] = useState([
@@ -66,6 +66,15 @@ const TaskContextProvider = ({ children }) => {
     // });
     // setTasks([...tasks]);
   };
+  const handleUndo = (task) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((prevTask) =>
+        prevTask.title === task.title
+          ? { ...prevTask, isComplete: false }
+          : prevTask,
+      ),
+    );
+  };
 
   const handleTotalCompleteTask = () => {
     const completeDTask = tasks.filter((task) => task.isComplete === true);
@@ -81,22 +90,18 @@ const TaskContextProvider = ({ children }) => {
       ((handleTotalCompleteTask() / tasks.length) * 100).toFixed(2),
     );
   };
+  const taskInfo = {
+    tasks,
+    handleUndo,
+    addTask,
+    handleDeleteBtn,
+    handleEditTask,
+    handleComplete,
+    handleTotalCompleteTask,
+    handleTotalPendingTask,
+    totalProgress,
+  };
 
-  return (
-    <taskContext.Provider
-      value={{
-        tasks,
-        addTask,
-        handleDeleteBtn,
-        handleEditTask,
-        handleComplete,
-        handleTotalCompleteTask,
-        handleTotalPendingTask,
-        totalProgress,
-      }}
-    >
-      {children}
-    </taskContext.Provider>
-  );
+  return <TaskContext value={taskInfo}>{children}</TaskContext>;
 };
 export default TaskContextProvider;
