@@ -5,7 +5,6 @@ import Button from "../Components/Button";
 import Modal from "../Components/Modal";
 import TableData from "../Components/TableData";
 import cn from "../lib/Utility";
-import { useTheme } from "../Hooks/useTheme";
 import Header from "../Components/Header";
 import ConfirmModal from "../Components/ConfirmModal";
 import useTask from "../Hooks/useTask";
