@@ -23,7 +23,6 @@ const Home = () => {
     handleEditTask,
     handleComplete,
   } = useTask();
-  const { theme } = useTheme();
   const [selectedTask, setSelectedTask] = useState();
   const [deleteTask, setDeleteTask] = useState();
 
