@@ -31,7 +31,9 @@ const TaskContextProvider = ({ children }) => {
   ]);
 
   const addTask = (title) => {
-    const id = tasks.length + 1;
+    const dateTime = new Date().toISOString().split(".")[0].split("T");
+    const id =
+      dateTime[0].split("-").join("") + dateTime[1].split(":").join("");
     const date = new Date().toISOString().split("T")[0];
     const newTask = { id, title, isComplete: false, date };
     setTasks((prevTasks) => [...prevTasks, newTask]);
@@ -59,12 +61,6 @@ const TaskContextProvider = ({ children }) => {
           : prevTask,
       ),
     );
-    // tasks.map((t) => {
-    //   if (t.title === task.title) {
-    //     t.isComplete = true;
-    //   }
-    // });
-    // setTasks([...tasks]);
   };
   const handleUndo = (task) => {
     setTasks((prevTasks) =>
@@ -76,7 +72,7 @@ const TaskContextProvider = ({ children }) => {
     );
   };
 
-  const handleTotalCompleteTask = () => {
+  const getCompletedTaskCount = () => {
     const completeDTask = tasks.filter((task) => task.isComplete === true);
     return completeDTask.length;
   };
@@ -86,9 +82,9 @@ const TaskContextProvider = ({ children }) => {
     return completeDTask.length;
   };
   const totalProgress = () => {
-    return Number(
-      ((handleTotalCompleteTask() / tasks.length) * 100).toFixed(2),
-    );
+    return tasks.length === 0
+      ? 0
+      : Number(((getCompletedTaskCount() / tasks.length) * 100).toFixed(2));
   };
   const taskInfo = {
     tasks,
@@ -97,7 +93,7 @@ const TaskContextProvider = ({ children }) => {
     handleDeleteBtn,
     handleEditTask,
     handleComplete,
-    handleTotalCompleteTask,
+    getCompletedTaskCount,
     handleTotalPendingTask,
     totalProgress,
   };

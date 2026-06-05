@@ -1,11 +1,11 @@
 import { NavLink } from "react-router";
 
-const CustomNavLink = ({ linkTitle, to, ...props }) => {
+const CustomNavLink = ({ linkTitle: label, to, ...props }) => {
   return (
     <li>
-      <NavLink to={to} className="flex items-center gap-2">
+      <NavLink to={to} className="flex items-center gap-2" tooltip="data-tool">
         {props.icon}
-        <span>{linkTitle}</span>
+        <span className="hidden sm:block">{label}</span>
       </NavLink>
     </li>
   );

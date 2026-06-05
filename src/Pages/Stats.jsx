@@ -6,7 +6,7 @@ import TaskPieChart from "../Components/TaskPieChart";
 const Stats = () => {
   const {
     tasks,
-    handleTotalCompleteTask,
+    getCompletedTaskCount,
     handleTotalPendingTask,
     totalProgress,
   } = useTask();
@@ -17,7 +17,7 @@ const Stats = () => {
     },
     {
       title: "Total completed todos",
-      total: handleTotalCompleteTask(),
+      total: getCompletedTaskCount(),
     },
     {
       title: "Total pending todos",

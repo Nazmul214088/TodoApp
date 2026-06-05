@@ -6,24 +6,27 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
-import ComponentHeader from "./ComponentHeader";
+import Header from "./Header";
 
 const TaskPieChart = (taskStatsData) => {
-  console.log(taskStatsData);
   const taskData = taskStatsData.taskStatsData;
-  console.log(taskData);
 
-  const data = taskData.map((item) => ({
+  const filterTaskData = taskData.filter(
+    (data) =>
+      !(
+        data.title == "Total number of todos" ||
+        data.title == "Completion percentage"
+      ),
+  );
+
+  const data = filterTaskData.map((item) => ({
     name: item.title,
     value: item.total,
   }));
-  data.pop();
-  data.shift();
-  console.log(data);
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
   return (
     <div>
-      <ComponentHeader title="Task Completion Status" />
+      <Header title="Task Completion Status" />
       <ResponsiveContainer width={"100%"} height={"400"}>
         <PieChart width={400} height={500}>
           <Pie data={data} outerRadius={150} cx="50%" cy="50%">

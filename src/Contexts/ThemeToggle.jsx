@@ -8,6 +8,7 @@ const ThemeToggle = () => {
   return (
     <Button
       onClick={toggleTheme}
+      type="button"
       className="shadow-[inset_0_0_5px_#67e6dc] text-2xl font-bold transition duration-200 dark:bg-[#b6e4ff] py-2 px-6"
       title={
         theme === "light" ? (

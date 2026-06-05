@@ -5,8 +5,8 @@ import CustomNavLink from "./CustomNavLink";
 const Navbar = () => {
   const navLinks = (
     <>
-      <CustomNavLink linkTitle="Home" to="/" icon={<FaHome />} />
-      <CustomNavLink linkTitle="Stats" to="/stats" icon={<FaChartBar />} />
+      <CustomNavLink label="Home" to="/" icon={<FaHome />} />
+      <CustomNavLink label="Stats" to="/stats" icon={<FaChartBar />} />
     </>
   );
   return (

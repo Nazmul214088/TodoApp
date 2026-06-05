@@ -1,6 +1,6 @@
 import cn from "../lib/Utility";
 
-const ComponentHeader = ({ title, className }) => {
+const Header = ({ title, className }) => {
   return (
     <h2
       className={cn(
@@ -13,4 +13,4 @@ const ComponentHeader = ({ title, className }) => {
   );
 };
 
-export default ComponentHeader;
+export default Header;
