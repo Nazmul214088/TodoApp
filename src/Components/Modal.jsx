@@ -1,22 +1,32 @@
 import { useRef } from "react";
 import Button from "./Button";
+import InputField from "./InputField";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signUpScheme } from "../schema/SignUpScheme";
 
 const Modal = ({ modalRef, modalText, ...props }) => {
   const formRef = useRef();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({ resolver: zodResolver(signUpScheme) });
   return (
     <dialog
       ref={modalRef}
-      className="p-8 fixed top-15 mx-auto rounded-2xl dark:bg-[#50627a] dark:text-white "
+      className="p-8 w-9/10 lg:w-1/3 fixed top-15 mx-auto rounded-2xl dark:bg-[#50627a] dark:text-white "
     >
-      <div className=" w-5/6 mx-auto relative">
-        <form ref={formRef} onSubmit={props.onSubmit}>
-          <label className="text-xl font-semibold">Task title: </label>
-          <input
-            type="text"
-            className="text-xl w-full p-2 border rounded-xl my-2"
+      <div className="relative">
+        <form ref={formRef} onSubmit={handleSubmit(props.onSubmit)}>
+          <InputField
+            inputLabel="Task title:"
             name="title"
+            className="my-2 "
             placeholder="Task Title"
-            {...props}
+            type="text"
+            register={register}
+            errors={errors}
           />
 
           <Button

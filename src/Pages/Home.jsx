@@ -8,6 +8,8 @@ import cn from "../lib/Utility";
 import Header from "../Components/Header";
 import ConfirmModal from "../Components/ConfirmModal";
 import useTask from "../Hooks/useTask";
+import { IoIosUndo } from "react-icons/io";
+import { MdTaskAlt } from "react-icons/md";
 
 const Home = () => {
   const newTaskModalRef = useRef();
@@ -84,7 +86,7 @@ const Home = () => {
       <div className="flex justify-between my-8 w-[95%] mx-auto">
         <Header title=" All Todo lists:" />
         <Button
-          className="px-6 py-2 bg-[#03fd25]"
+          className="px-6 h-15 bg-[#03fd25]"
           title="Add New Task"
           type="button"
           onClick={() => newTaskModalRef.current.showModal()}
@@ -126,13 +128,16 @@ const Home = () => {
                       {!task.isComplete ? (
                         <Button
                           className={"bg-[#081fca] px-6 py-2 text-white"}
-                          title={"Complete"}
+                          title="Complete"
+                          icon={<MdTaskAlt />}
                           type="button"
                           onClick={() => handleCompleteBtn(task)}
                         />
                       ) : (
                         <Button
                           title="Undo"
+                          icon={<IoIosUndo />}
+                          isOnlyIconShow={true}
                           type="button"
                           onClick={() => handleUndoBtn(task)}
                           className={"bg-indigo-500 px-6 py-2 text-white"}
@@ -142,14 +147,18 @@ const Home = () => {
                       <Button
                         type="button"
                         className={"bg-[#01c726] px-6 py-2 mx-2 text-white"}
+                        isOnlyIconShow={true}
                         onClick={() => openEditModal(task)}
-                        title={<BiEdit />}
+                        icon={<BiEdit />}
+                        title="Edit"
                       />
                       <Button
                         type="button"
                         className={"bg-[#ca0808] px-6 py-2 text-white"}
                         onClick={() => openDeleteConfirmModal(task)}
-                        title={<FaRegTrashAlt />}
+                        isOnlyIconShow={true}
+                        icon={<FaRegTrashAlt />}
+                        title="Delete"
                       />
                     </>
                   }

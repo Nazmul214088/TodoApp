@@ -3,8 +3,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "../Components/Button";
 import Input from "../Components/Input";
 import { signUpScheme } from "../schema/SignUpScheme";
+import { useNavigate } from "react-router";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -12,6 +14,7 @@ const SignUp = () => {
   } = useForm({ resolver: zodResolver(signUpScheme) });
   const onSubmit = (data) => {
     console.log(data);
+    navigate("/");
   };
   return (
     <div className="w-4/6 mx-auto">

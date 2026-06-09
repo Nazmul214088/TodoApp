@@ -1,6 +1,6 @@
 import { NavLink } from "react-router";
 
-const CustomNavLink = ({ label, to, ...props }) => {
+const NavItem = ({ label, to, ...props }) => {
   return (
     <li>
       <NavLink to={to} className="flex items-center gap-2" tooltip="data-tool">
@@ -11,4 +11,4 @@ const CustomNavLink = ({ label, to, ...props }) => {
   );
 };
 
-export default CustomNavLink;
+export default NavItem;

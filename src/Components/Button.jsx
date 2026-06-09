@@ -7,7 +7,12 @@ const Button = ({ className, type, title, ...props }) => {
       onClick={props.onClick}
       type={type}
     >
-      {title}
+      <div className="flex gap-1 items-center">
+        {props.icon}
+        <span className={cn(props.isOnlyIconShow && "md:block hidden")}>
+          {title}
+        </span>
+      </div>
     </button>
   );
 };

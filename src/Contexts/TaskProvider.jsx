@@ -3,32 +3,7 @@ import { TaskContext } from "./TaskContext";
 // eslint-disable-next-line react-refresh/only-export-components
 
 const TaskContextProvider = ({ children }) => {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "Learn JavaScript Array Methods",
-      isComplete: false,
-      date: "2026-06-15",
-    },
-    {
-      id: 2,
-      title: "Complete React Project",
-      isComplete: false,
-      date: "2026-06-16",
-    },
-    {
-      id: 3,
-      title: "Study Redux",
-      isComplete: false,
-      date: "2026-06-17",
-    },
-    {
-      id: 4,
-      title: "Practice DSA Problems",
-      isComplete: true,
-      date: "2026-06-18",
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
 
   const addTask = (title) => {
     const dateTime = new Date().toISOString().split(".")[0].split("T");
