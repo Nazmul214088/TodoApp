@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "../Components/Button";
-import Input from "../Components/Input";
 import { signUpScheme } from "../schema/SignUpScheme";
 import { useNavigate } from "react-router";
+import InputField from "../Components/InputField";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const SignUp = () => {
     <div className="w-4/6 mx-auto">
       <h2 className="text-5xl font-semibold py-4">Welcome to back Todo APP </h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Input
+        <InputField
           inputLabel="Name"
           name="name"
           placeholder="Enter your Name"
@@ -28,7 +28,7 @@ const SignUp = () => {
           register={register}
           errors={errors}
         />
-        <Input
+        <InputField
           inputLabel="Email"
           name="email"
           placeholder="Enter your Email"
@@ -36,7 +36,7 @@ const SignUp = () => {
           register={register}
           errors={errors}
         />
-        <Input
+        <InputField
           inputLabel="Phone Number"
           name="phone"
           placeholder="Enter your Phone Number"
